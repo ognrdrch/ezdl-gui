@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import requests
 import time
+from datetime import datetime
 from pathlib import Path
 from PyQt5.QtCore import QThread, pyqtSignal
 from updater import get_ytdlp_cmd
@@ -238,13 +239,11 @@ class DownloadWorker(QThread):
     def _run_voe_from_pattern(self, pattern, seg_list, end_seg: int, output_path: str):
         self.progress.emit(f"  Total segments detected: {end_seg}")
 
-        # Output filename derived from pattern or seg_list URL
-        ref_url  = (seg_list[0] if seg_list else pattern.replace('{}', '1'))
-        slug     = re.sub(r'[^\w\-_]', '_', ref_url.rstrip('/').split('/')[-1].split('.ts')[0] or "voe_video")
-        # Trim trailing underscores / noise
-        slug     = re.sub(r'_+$', '', slug)[:60] or "voe_video"
-        out_file = os.path.join(output_path, slug + ".mp4")
-        tmp_dir  = os.path.join(output_path, f"_voe_tmp_{slug}")
+        # Name output file after the current date and time — unique and human-readable
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        slug      = f"voe_{timestamp}"
+        out_file  = os.path.join(output_path, slug + ".mp4")
+        tmp_dir   = os.path.join(output_path, f"_voe_tmp_{timestamp}")
         os.makedirs(tmp_dir, exist_ok=True)
 
         seg_files = []
