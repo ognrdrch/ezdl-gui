@@ -175,7 +175,7 @@ class SettingsWindow(QWidget):
         audio_col.addWidget(self._mini_label("Audio Format"))
         self.audio_format = QComboBox()
         self.audio_format.addItems(["mp3", "aac", "flac", "wav", "opus", "m4a"])
-        self.audio_format.setCurrentText(s.get("audio_format", "mp3"))
+        self.audio_format.setCurrentText(s.get("audio_format", "flac"))
         self._style_combo(self.audio_format)
         audio_col.addWidget(self.audio_format)
 

@@ -308,13 +308,13 @@ class MainWindow(QWidget):
             font-weight: 600;
             letter-spacing: 1.5px;
         """)
-        body_layout.addWidget(url_label)
+        #body_layout.addWidget(url_label)
 
         url_row = QHBoxLayout()
         url_row.setSpacing(8)
 
         self.url_input = QLineEdit()
-        self.url_input.setPlaceholderText("Paste a YouTube, SoundCloud, or Spotify URL…")
+        self.url_input.setPlaceholderText("Paste a Media URL")
         self.url_input.setFixedHeight(46)
         self.url_input.setStyleSheet(f"""
             QLineEdit {{

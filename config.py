@@ -38,9 +38,9 @@ DEFAULT_SETTINGS = {
     "settings": {
         "audio_path": get_default_music_dir(),
         "video_path": get_default_video_dir(),
-        "file_naming_scheme": "%(title)s_%(upload_date)s.%(ext)s",
+        "file_naming_scheme": "%(title)s.%(ext)s",
         "audio_quality": 0,
-        "audio_format": "mp3",
+        "audio_format": "flac",
         "video_format": "mp4",
         "download_playlist": False,
         "use_cookies": False,
