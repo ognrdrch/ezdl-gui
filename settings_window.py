@@ -4,7 +4,7 @@ from pathlib import Path
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QCheckBox, QComboBox, QFileDialog, QSlider,
-    QFrame, QScrollArea, QSizePolicy, QSpacerItem
+    QFrame, QSizePolicy, QSpacerItem
 )
 from PyQt5.QtCore import Qt, QPoint, pyqtSignal
 from PyQt5.QtGui import QColor, QPainter, QBrush, QFont, QPen, QCursor
@@ -63,9 +63,9 @@ class SettingsWindow(QWidget):
         self.drag_pos = QPoint()
 
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Window | Qt.Tool)
-        self.setMinimumSize(520, 580)
-        self.resize(520, 640)
+        self.setMinimumWidth(520)
         self._init_ui()
+        self.adjustSize()
 
     def _init_ui(self):
         outer = QVBoxLayout(self)
@@ -119,22 +119,6 @@ class SettingsWindow(QWidget):
         div.setFixedHeight(1)
         div.setStyleSheet("background: #1E1E2E;")
         card_layout.addWidget(div)
-
-        # Scroll area for settings content
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setFrameShape(QFrame.NoFrame)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        scroll.setStyleSheet("""
-            QScrollArea { background: transparent; border: none; }
-            QScrollBar:vertical {
-                background: #0E0E18; width: 6px; border-radius: 3px;
-            }
-            QScrollBar::handle:vertical {
-                background: #2A2A3A; border-radius: 3px; min-height: 30px;
-            }
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
-        """)
 
         content = QWidget()
         content.setStyleSheet("background: transparent;")
@@ -244,9 +228,7 @@ class SettingsWindow(QWidget):
         content_layout.addWidget(self.spotify_id)
         content_layout.addWidget(self.spotify_secret)
 
-        content_layout.addStretch()
-        scroll.setWidget(content)
-        card_layout.addWidget(scroll)
+        card_layout.addWidget(content)
 
         # Save button
         save_bar = QFrame()
