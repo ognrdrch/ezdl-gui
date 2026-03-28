@@ -14,7 +14,7 @@ bin/python -m pip install -r requirements.txt
 git clone https://github.com/ognrdrch/ezdl-gui.git
 cd ezdl-gui 
 python -m venv .
-Scripts\python.exe
+Scripts\python.exe -m pip install -r requirements.txt 
 ```
 # windows
 
