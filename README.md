@@ -1,5 +1,7 @@
 > clean yt-dlp wrapper with added support for content hosted on VOE 
 
+![Showcase](https://raw.githubusercontent.com/ognrdrch/ezdl-gui/refs/heads/main/screenshot1.png)
+
 requirements: [Python](https://www.python.org/downloads/), [git](http://git-scm.com/install/) 
 #### Installation: 
 ```
