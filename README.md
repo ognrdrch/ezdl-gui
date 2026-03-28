@@ -26,7 +26,7 @@ bin/python main.py
 ```
 ```
 # windows
-Scripts\python.exe
+Scripts\python.exe main.py
 ```
 
 
