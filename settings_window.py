@@ -63,7 +63,7 @@ class SettingsWindow(QWidget):
         self.drag_pos = QPoint()
 
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Window | Qt.Tool)
-        self.setMinimumWidth(520)
+        self.setMinimumWidth(500)
         self._init_ui()
         self.adjustSize()
 

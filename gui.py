@@ -401,6 +401,7 @@ class MainWindow(QWidget):
         self.status_lbl = QLabel("Ready")
         self.status_lbl.setStyleSheet(f"color: {TEXT_DIM}; font-size: 11px;")
         self.status_lbl.setAlignment(Qt.AlignCenter)
+        self.status_lbl.setFixedHeight(16)
         body_layout.addWidget(self.status_lbl)
 
         # ── Divider ───────────────────────────────────────
@@ -540,7 +541,7 @@ class MainWindow(QWidget):
             self._set_status("Ready", TEXT_DIM)
 
     def _set_status(self, text, color=None):
-        style = f"font-size: 11px; color: {color or TEXT_DIM};"
+        style = f"font-size: 12px; color: {color or TEXT_DIM};"
         self.status_lbl.setStyleSheet(style)
         self.status_lbl.setText(text)
 
