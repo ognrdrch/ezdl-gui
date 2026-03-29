@@ -2,7 +2,7 @@
 
 ![Showcase](https://raw.githubusercontent.com/ognrdrch/ezdl-gui/refs/heads/main/screenshot1.png)
 
-requirements: [Python](https://www.python.org/downloads/), [git](http://git-scm.com/install/) 
+requirements: [Python](https://www.python.org/downloads/), [git](http://git-scm.com/install/), [FFmpeg](https://ffmpeg.org/download.html)
 #### Installation: 
 ```
 # linux
