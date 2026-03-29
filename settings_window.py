@@ -63,6 +63,7 @@ class SettingsWindow(QWidget):
         self.drag_pos = QPoint()
 
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Window | Qt.Tool)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setMinimumWidth(500)
         self._init_ui()
         self.adjustSize()
@@ -455,8 +456,30 @@ class SettingsWindow(QWidget):
         if event.buttons() == Qt.LeftButton and self.drag_pos:
             self.move(event.globalPos() - self.drag_pos)
 
+    def resizeEvent(self, event):
+        """Apply a rounded-rectangle mask so the OS clips the window shape."""
+        super().resizeEvent(event)
+        from PyQt5.QtGui import QRegion, QBitmap, QPainterPath
+        from PyQt5.QtCore import Qt
+        from PyQt5.QtGui import QPainter
+        radius = 12
+        path = QPainterPath()
+        path.addRoundedRect(0, 0, self.width(), self.height(), radius, radius)
+        mask_bitmap = QBitmap(self.size())
+        mask_bitmap.fill(Qt.color0)
+        p = QPainter(mask_bitmap)
+        p.setRenderHint(QPainter.Antialiasing)
+        p.setBrush(Qt.color1)
+        p.setPen(Qt.NoPen)
+        p.drawPath(path)
+        p.end()
+        self.setMask(QRegion(mask_bitmap))
+
     def paintEvent(self, event):
-        # Shadow effect via transparent window + drawing
+        from PyQt5.QtGui import QPainter, QBrush, QColor
+        from PyQt5.QtCore import Qt
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
-        painter.fillRect(self.rect(), Qt.transparent)
+        painter.setBrush(QBrush(QColor("#0E0E18")))
+        painter.setPen(Qt.NoPen)
+        painter.drawRoundedRect(self.rect(), 12, 12)

@@ -196,6 +196,7 @@ class MainWindow(QWidget):
         self.drag_pos = QPoint()
 
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Window)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setMinimumSize(480, 500)
         self.resize(500, 560)
         self.setWindowTitle("EZDL")
@@ -596,8 +597,28 @@ class MainWindow(QWidget):
         if event.buttons() == Qt.LeftButton and self.drag_pos:
             self.move(event.globalPos() - self.drag_pos)
 
+    def resizeEvent(self, event):
+        """Apply a rounded-rectangle mask so the OS clips the window shape."""
+        super().resizeEvent(event)
+        from PyQt5.QtGui import QRegion
+        radius = 12
+        region = QRegion(self.rect(), QRegion.Rectangle)
+        # Build rounded mask via QPainterPath → bitmap
+        path = QPainterPath()
+        path.addRoundedRect(0, 0, self.width(), self.height(), radius, radius)
+        mask_bitmap = __import__('PyQt5.QtGui', fromlist=['QBitmap']).QBitmap(self.size())
+        mask_bitmap.fill(Qt.color0)
+        p = QPainter(mask_bitmap)
+        p.setRenderHint(QPainter.Antialiasing)
+        p.setBrush(Qt.color1)
+        p.setPen(Qt.NoPen)
+        p.drawPath(path)
+        p.end()
+        self.setMask(QRegion(mask_bitmap))
+
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
-        # Subtle outer glow / shadow
-        painter.fillRect(self.rect(), Qt.transparent)
+        painter.setBrush(QBrush(QColor(BG_CARD)))
+        painter.setPen(Qt.NoPen)
+        painter.drawRoundedRect(self.rect(), 12, 12)
