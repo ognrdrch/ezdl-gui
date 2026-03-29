@@ -556,7 +556,7 @@ class MainWindow(QWidget):
     def _run_update(self):
         self.update_btn.setEnabled(False)
         self.log.append_line("\nChecking for updates…", TEXT_DIM)
-        self._set_status("Updating yt-dlp…", ACCENT)
+        self._set_status("Updating Python Dependencies…", ACCENT)
 
         self._update_worker = UpdateWorker("ytdlp")
         self._update_worker.log.connect(lambda t: self.log.append_line(t, TEXT_DIM))
