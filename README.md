@@ -25,6 +25,7 @@ bin/python main.py
 ```
 ```
 # windows
+Scripts\Activate.ps1
 Scripts\python.exe main.py
 ```
 
